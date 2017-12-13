@@ -42,3 +42,22 @@ def extract_job_data_from_seek(base_url):
 	
 	
 extract_job_data_from_seek('https://www.seek.com.au/jobs-in-science-technology/chemistry-physics')
+
+def send_gmail(from_addr = '****', to_addr = '****',
+								location = 'Canberra, ACT'
+               subject = 'New Jobs from Seek', text = None):
+    
+    message = 'Subject: {0}\n\nJobs in: {1}\n\n{2}'.format(subject, location, text)
+
+    # login information
+    username = '****'
+    password = '****'
+    
+    # send the message
+    server = smtplib.SMTP('smtp.gmail.com:587')
+    server.ehlo()
+    server.starttls()
+    server.login(username, password)
+    server.sendmail(from_addr, to_addr, message)
+    server.quit()
+    print 'Email sent.'
